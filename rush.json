@@ -394,6 +394,10 @@
     {
       "packageName": "@domain/todo",
       "projectFolder": "domain/todo"
+    },
+    {
+      "packageName": "@render/client",
+      "projectFolder": "render/client"
     }
     // {
     //   /**
