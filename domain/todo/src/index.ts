@@ -31,5 +31,17 @@ export class Todo {
   static create(content: string) {
     return new Todo(uuid.v4(), new Date(), content, new UnfinishedStatus());
   }
-  private constructor(private id: string, private createAt: Date, private content: string, private status: TodoStatus) {}
+  protected constructor(private id: string, private createAt: Date, private readonly _content: string, private status: TodoStatus) {}
+
+  get content() {
+    return this._content;
+  }
+
+  nextStatus() {
+    this.status = this.status.next();
+  }
+
+  modify(content: string) {
+    return new Todo(this.id, this.createAt, content, new UnfinishedStatus());
+  }
 }

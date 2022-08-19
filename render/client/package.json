@@ -26,7 +26,8 @@
     "dev:rn": "npm run build:rn -- --watch",
     "dev:qq": "npm run build:qq -- --watch",
     "dev:jd": "npm run build:jd -- --watch",
-    "dev:quickapp": "npm run build:quickapp -- --watch"
+    "dev:quickapp": "npm run build:quickapp -- --watch",
+    "build": ""
   },
   "browserslist": [
     "last 3 versions",
@@ -42,7 +43,11 @@
     "@tarojs/plugin-framework-react": "3.4.4",
     "@tarojs/react": "3.4.4",
     "react-dom": "^17.0.0",
-    "react": "^17.0.0"
+    "react": "^17.0.0",
+    "@domain/todo": "workspace:*",
+    "@dcasia/mini-program-tailwind-webpack-plugin": "~1.5.3",
+    "mobx": "~6.6.1",
+    "mobx-react-lite": "~3.4.0"
   },
   "devDependencies": {
     "@types/webpack-env": "^1.13.6",
