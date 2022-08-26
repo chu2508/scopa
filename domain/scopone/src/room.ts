@@ -3,6 +3,7 @@ import { Player } from "./player";
 
 export enum RoomStatus {
   READYING = "READYING",
+  READY = "READY",
 }
 
 export class Room {
@@ -20,7 +21,7 @@ export class Room {
   }
 
   get status() {
-    return this.isFulled ? this._status : RoomStatus.READYING;
+    return this._status;
   }
 
   get playersCount() {
@@ -38,6 +39,9 @@ export class Room {
       if (this.isFulled) throw new Error(`the room '${this.name}' is fulled`);
 
       this.players.push(player);
+
+      if (this.isFulled) this._status = RoomStatus.READY;
+
       return this;
     });
   }
