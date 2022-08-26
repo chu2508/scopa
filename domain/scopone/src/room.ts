@@ -4,16 +4,19 @@ import { Player } from "./player";
 export enum RoomStatus {
   READYING = "READYING",
   READY = "READY",
+  CLOSED = "CLOSED",
 }
 
 export class Room {
   private players: Player[] = [];
-  private readonly _owner: Player;
   private _status: RoomStatus = RoomStatus.READYING;
 
-  constructor(owner: Player, private readonly name: string) {
-    this.players.push(owner);
-    this._owner = owner;
+  constructor(private _owner: Player, private _name: string) {
+    this.players.push(_owner);
+  }
+
+  get name() {
+    return this._name;
   }
 
   get owner() {
@@ -41,6 +44,24 @@ export class Room {
       this.players.push(player);
 
       if (this.isFulled) this._status = RoomStatus.READY;
+
+      return this;
+    });
+  }
+
+  leave(id: number) {
+    return Either.encase(() => {
+      const playerIndex = this.players.findIndex((player) => player.id === id);
+      if (playerIndex === -1) throw new Error(`not found the player by id '${id}'`);
+
+      const [player] = this.players.splice(playerIndex, 1);
+
+      if (this.playersCount === 0) {
+        this._status = RoomStatus.CLOSED;
+        return this;
+      }
+
+      if (player.id === this._owner.id) this._owner = this.players[0];
 
       return this;
     });
