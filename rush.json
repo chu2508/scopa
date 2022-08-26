@@ -396,6 +396,10 @@
       "projectFolder": "domain/todo"
     },
     {
+      "packageName": "@domain/scopone",
+      "projectFolder": "domain/scopone"
+    },
+    {
       "packageName": "@render/client",
       "projectFolder": "render/client"
     }
