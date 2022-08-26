@@ -68,10 +68,14 @@ describe("Room tests", () => {
 
     expect(room.playersCount).toBe(2);
 
-    const result = room.leave(tPlayer.id);
+    let result = room.leave(tPlayer.id);
 
     expect(result.isRight()).toBeTruthy();
     expect(room.playersCount).toBe(1);
+
+    result = room.leave(tPlayer.id);
+
+    expect(result.isRight()).toBeFalsy();
   });
 
   test("should changed owner of room correctly, if original owner of room leave", () => {
