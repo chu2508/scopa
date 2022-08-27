@@ -102,4 +102,23 @@ describe("Room tests", () => {
 
     expect(room.status).toBe(RoomStatus.CLOSED);
   });
+
+  test("should room has been started correctly", () => {
+    const room = createRoom();
+    const tPlayer2 = createPlayer(2);
+    const tPlayer3 = createPlayer(3);
+    const tPlayer4 = createPlayer(4);
+
+    room.join(tPlayer2);
+    room.join(tPlayer3);
+
+    let result = room.start();
+
+    expect(result.isLeft()).toBeTruthy();
+
+    room.join(tPlayer4);
+    result = room.start();
+
+    expect(result.isRight()).toBeTruthy();
+  });
 });
