@@ -1,7 +1,7 @@
-import { Player } from "./../player";
 import { Room, RoomStatus } from "./../room";
+import { User } from "./../user";
 
-const createPlayer = (id = 1): Player => {
+const createPlayer = (id = 1): User => {
   return {
     id,
     nickname: "test user " + id,
@@ -21,7 +21,7 @@ describe("Room tests", () => {
     const room = new Room(tPlayer, tRoomName);
 
     expect(room.isFulled).toBeFalsy();
-    expect(room.playersCount).toBe(1);
+    expect(room.userCount).toBe(1);
     expect(room.owner).toEqual(tPlayer);
     expect(room.status).toEqual(RoomStatus.READYING);
   });
@@ -34,7 +34,7 @@ describe("Room tests", () => {
 
     expect(result.isRight()).toBeTruthy();
     expect(room.isFulled).toBeFalsy();
-    expect(room.playersCount).toBe(2);
+    expect(room.userCount).toBe(2);
 
     result = room.join(tPlayer);
 
@@ -52,7 +52,7 @@ describe("Room tests", () => {
     room.join(tPlayer4);
 
     expect(room.isFulled).toBeTruthy();
-    expect(room.playersCount).toBe(4);
+    expect(room.userCount).toBe(4);
     expect(room.status).toBe(RoomStatus.READY);
 
     const result = room.join(createPlayer(5));
@@ -66,12 +66,12 @@ describe("Room tests", () => {
 
     room.join(tPlayer);
 
-    expect(room.playersCount).toBe(2);
+    expect(room.userCount).toBe(2);
 
     let result = room.leave(tPlayer.id);
 
     expect(result.isRight()).toBeTruthy();
-    expect(room.playersCount).toBe(1);
+    expect(room.userCount).toBe(1);
 
     result = room.leave(tPlayer.id);
 
@@ -103,7 +103,7 @@ describe("Room tests", () => {
     expect(room.status).toBe(RoomStatus.CLOSED);
   });
 
-  test("should room has been started correctly", () => {
+  test("the room should has started correctly", () => {
     const room = createRoom();
     const tPlayer2 = createPlayer(2);
     const tPlayer3 = createPlayer(3);
