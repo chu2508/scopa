@@ -2,7 +2,7 @@ import { Card } from "./deck";
 import { User } from "./user";
 
 export class Player implements User {
-  private cards: Card[] = [];
+  private _cards: Card[] = [];
   constructor(private _user: User) {}
 
   get id() {
@@ -18,10 +18,14 @@ export class Player implements User {
   }
 
   get cardCount() {
-    return this.cards.length;
+    return this._cards.length;
+  }
+
+  get cards() {
+    return this._cards;
   }
 
   receive(cards: Card[]) {
-    this.cards = this.cards.concat(cards);
+    this._cards = this._cards.concat(cards);
   }
 }

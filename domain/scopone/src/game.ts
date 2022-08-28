@@ -7,7 +7,7 @@ export enum GameStatus {
   DEALT = "DEALT",
 }
 
-// 不同游戏模式下发牌模式不同，所以抽象出发牌策略接口，方便测试与维护
+// 不同游戏模式下发牌的方式有所差异，所以抽象出发牌策略接口，方便测试与维护
 export interface DealStrategy {
   (cards: Card[], numberOfPlayers: number): {
     cardsOfPlayers: Card[][];
