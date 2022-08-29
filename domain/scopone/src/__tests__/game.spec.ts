@@ -6,7 +6,7 @@ const createUsers = (): User[] => {
   return Array.from({ length: 4 }, (_, id) => ({ id: id + 1, nickname: `name ${id}`, avatar: "" }));
 };
 
-describe("Game test", () => {
+describe("init tests for game", () => {
   test("should create a game correctly", () => {
     const users = createUsers();
     const table: Card[] = [
@@ -66,5 +66,60 @@ describe("Game test", () => {
 
     expect(mockDealFn).toBeCalledTimes(2);
     expect(game.table).toEqual(table2);
+  });
+});
+
+const createMockData = () => {
+  const users = createUsers();
+
+  const table: Card[] = [
+    { type: Types.ACE, suit: Suits.Bastoni },
+    { type: Types.TWO, suit: Suits.Denari },
+    { type: Types.FOUR, suit: Suits.Bastoni },
+  ];
+  const cardsOfPlayers: Card[][] = [
+    [
+      { type: Types.ACE, suit: Suits.Spade },
+      { type: Types.TWO, suit: Suits.Spade },
+      { type: Types.THREE, suit: Suits.Spade },
+      { type: Types.FOUR, suit: Suits.Spade },
+      { type: Types.FIVE, suit: Suits.Spade },
+      { type: Types.SIX, suit: Suits.Spade },
+      { type: Types.JACK, suit: Suits.Spade },
+    ],
+    [{ type: Types.KING, suit: Suits.Bastoni }],
+    [{ type: Types.KING, suit: Suits.Coppe }],
+    [{ type: Types.KING, suit: Suits.Denari }],
+  ];
+
+  const dealFn = () => {
+    return {
+      table,
+      cardsOfPlayers,
+    };
+  };
+
+  return {
+    table,
+    cardsOfPlayers,
+    dealFn,
+    users,
+  };
+};
+
+describe("playing tests for game", () => {
+  test.skip("current player should place and capture cards correctly", () => {
+    const { users, dealFn, table, cardsOfPlayers } = createMockData();
+
+    const game = new Game(users, 0, dealFn);
+
+    const result = game.place(users[1].id, { type: Types.ACE, suit: Suits.Spade });
+
+    expect(result.isRight()).toBeTruthy();
+    expect(result.extract()).toEqual({
+      scopa: false,
+      placed: { type: Types.ACE, suit: Suits.Spade },
+      captured: [[{ type: Types.ACE, suit: Suits.Bastoni }]],
+    });
   });
 });

@@ -1,3 +1,4 @@
+import { Either } from "purify-ts";
 import { v4 as uuid } from "uuid";
 import { Card, Deck, Types } from "./deck";
 import { Player } from "./player";
@@ -13,6 +14,12 @@ export interface DealStrategy {
     cardsOfPlayers: Card[][];
     table: Card[];
   };
+}
+
+export interface PlaceResult {
+  scopa: boolean;
+  placed: Card;
+  captured: Card[][];
 }
 
 export class Game {
@@ -87,5 +94,28 @@ export class Game {
 
   get players() {
     return this._players;
+  }
+
+  place(id: number, card: Card): Either<Error, PlaceResult> {
+    return Either.encase(() => {
+      if (this.currentPlayer.id !== id) throw new Error(`the player id '${id}' not is current player`);
+    }).chain(() => {
+      return this.currentPlayer
+        .place(card)
+        .toEither(new Error(`not found card '${card.suit}-${card.type}' in the player '${this.currentPlayer.nickname}'`))
+        .extend(() => {
+          this._currentPlayerIndex = this._getNextPlayerIndex();
+          const captured = this._matchTableCards(card);
+          return {
+            scopa: false,
+            placed: { ...card },
+            captured: captured,
+          };
+        });
+    });
+  }
+
+  private _matchTableCards(card: Card): Card[][] {
+    throw new Error("Method not implemented.");
   }
 }
