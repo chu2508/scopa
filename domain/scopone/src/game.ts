@@ -2,6 +2,7 @@ import { Either } from "purify-ts";
 import { v4 as uuid } from "uuid";
 import { Card, Deck, Types } from "./deck";
 import { Player } from "./player";
+import { Table } from "./table";
 import { User } from "./user";
 
 export enum GameStatus {
@@ -30,7 +31,7 @@ export class Game {
   private _dealerIndex: number;
   private _players: Player[] = [];
   private _currentPlayerIndex: number;
-  private _table: Card[] = [];
+  private _table: Table = new Table([]);
   private _dealStrategy: DealStrategy;
 
   constructor(users: User[], dealerIndex: number, dealStrategy: DealStrategy) {
@@ -58,8 +59,8 @@ export class Game {
     this._deck.shuffle();
     const cards = this._deck.cards;
 
-    const { cardsOfPlayers, table } = this._dealStrategy(cards, this._players.length);
-    this._table = table;
+    const { cardsOfPlayers, table: cardsOfTable } = this._dealStrategy(cards, this._players.length);
+    this._table = new Table(cardsOfTable);
 
     let index = this._dealerIndex;
     cardsOfPlayers.forEach((cardOfPlayer) => {
@@ -68,7 +69,7 @@ export class Game {
       this._players[index].receive(cardOfPlayer);
     });
 
-    const kingCards = this._table.reduce((acc, card) => (card.type === Types.KING ? acc + 1 : acc), 0);
+    const kingCards = this._table.cards.reduce((acc, card) => (card.type === Types.KING ? acc + 1 : acc), 0);
 
     if (kingCards >= 3) {
       this._deck = new Deck();
@@ -85,7 +86,7 @@ export class Game {
   }
 
   get table() {
-    return this._table;
+    return this._table.cards;
   }
 
   get status() {
