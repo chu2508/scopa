@@ -24,7 +24,7 @@ describe("init tests for game", () => {
     const mockDealFn = jest.fn();
     mockDealFn.mockReturnValue({ table, cardsOfPlayers });
 
-    const game = new Game(users, 0, mockDealFn);
+    const game = new Game(users, 0, mockDealFn, () => []);
 
     expect(game.status).toBe(GameStatus.DEALT);
     expect(game.table).toEqual(table);
@@ -62,7 +62,7 @@ describe("init tests for game", () => {
     mockDealFn.mockReturnValueOnce({ table, cardsOfPlayers });
     mockDealFn.mockReturnValueOnce({ table: table2, cardsOfPlayers });
 
-    const game = new Game(users, 0, mockDealFn);
+    const game = new Game(users, 0, mockDealFn, () => []);
 
     expect(mockDealFn).toBeCalledTimes(2);
     expect(game.table).toEqual(table2);
@@ -74,6 +74,7 @@ const createMockData = () => {
 
   const table: Card[] = [
     { type: Types.ACE, suit: Suits.Bastoni },
+    { type: Types.ACE, suit: Suits.Coppe },
     { type: Types.TWO, suit: Suits.Denari },
     { type: Types.FOUR, suit: Suits.Bastoni },
   ];
@@ -98,28 +99,67 @@ const createMockData = () => {
       cardsOfPlayers,
     };
   };
+  const scoringFn = () => {
+    return [];
+  };
 
   return {
     table,
     cardsOfPlayers,
     dealFn,
     users,
+    scoringFn,
   };
 };
 
 describe("playing tests for game", () => {
-  test.skip("current player should place and capture cards correctly", () => {
-    const { users, dealFn, table, cardsOfPlayers } = createMockData();
+  test("current player should place and capture cards correctly", () => {
+    const { users, dealFn, scoringFn } = createMockData();
+    const captured = [
+      { type: Types.ACE, suit: Suits.Coppe },
+      { type: Types.TWO, suit: Suits.Denari },
+    ];
+    const card = { type: Types.THREE, suit: Suits.Spade };
+    const game = new Game(users, 0, dealFn, scoringFn);
 
-    const game = new Game(users, 0, dealFn);
-
-    const result = game.place(users[1].id, { type: Types.ACE, suit: Suits.Spade });
+    const result = game.place(users[1].id, card, captured);
 
     expect(result.isRight()).toBeTruthy();
     expect(result.extract()).toEqual({
       scopa: false,
-      placed: { type: Types.ACE, suit: Suits.Spade },
-      captured: [[{ type: Types.ACE, suit: Suits.Bastoni }]],
+      placed: card,
+      captured: captured,
+      matched: [
+        [
+          { type: Types.TWO, suit: Suits.Denari },
+          { type: Types.ACE, suit: Suits.Bastoni },
+        ],
+        [
+          { type: Types.TWO, suit: Suits.Denari },
+          { type: Types.ACE, suit: Suits.Coppe },
+        ],
+      ],
     });
+    expect(game.table).toEqual([
+      { type: Types.ACE, suit: Suits.Bastoni },
+      { type: Types.FOUR, suit: Suits.Bastoni },
+    ]);
+    expect(game.currentPlayer).toEqual(game.players[2]);
+    expect(game.players[1].captured).toHaveLength(3);
+    expect(game.players[1].scopa).toBe(0);
+  });
+
+  test("current player should can not capture cards", () => {
+    const { users, dealFn, table, scoringFn } = createMockData();
+    const captured: Card[] = [];
+    const card = { type: Types.THREE, suit: Suits.Spade };
+    const game = new Game(users, 0, dealFn, scoringFn);
+
+    const result = game.place(users[1].id, card, captured);
+
+    expect(result.isRight()).toBeTruthy();
+    expect(game.players[1].captured).toHaveLength(0);
+    expect(game.players[1].scopa).toBe(0);
+    expect(game.table).toEqual([...table, card]);
   });
 });

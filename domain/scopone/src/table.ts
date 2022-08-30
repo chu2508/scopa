@@ -26,6 +26,19 @@ export class Table {
     return result.map((indexes) => indexes.map((idx) => copied[idx]));
   }
 
+  has(cards: Card[]) {
+    return cards.every((card) => this._cards.some((c) => c.type === card.type && c.suit === card.suit));
+  }
+
+  remove(cards: Card[]) {
+    cards.forEach((card) => {
+      const index = this._cards.findIndex((c) => c.type === card.type && c.suit === card.suit);
+      if (index > -1) {
+        this._cards.splice(index, 1);
+      }
+    });
+  }
+
   get cards() {
     return this._cards;
   }

@@ -1,4 +1,4 @@
-import { Either } from "purify-ts";
+import { Either, Left } from "purify-ts";
 import { v4 as uuid } from "uuid";
 import { Card, Deck, Types } from "./deck";
 import { Player } from "./player";
@@ -7,6 +7,7 @@ import { User } from "./user";
 
 export enum GameStatus {
   DEALT = "DEALT",
+  CLOSED = "CLOSED",
 }
 
 // 不同游戏模式下发牌的方式有所差异，所以抽象出发牌策略接口，方便测试与维护
@@ -20,7 +21,16 @@ export interface DealStrategy {
 export interface PlaceResult {
   scopa: boolean;
   placed: Card;
-  captured: Card[][];
+  matched: Card[][];
+  captured: Card[];
+}
+
+export interface PlayedResult {
+  scopa: number;
+  captured: Card[];
+}
+export interface ScoringStrategy {
+  (playedResults: PlayedResult[]): number[];
 }
 
 export class Game {
@@ -33,9 +43,11 @@ export class Game {
   private _currentPlayerIndex: number;
   private _table: Table = new Table([]);
   private _dealStrategy: DealStrategy;
+  private _scoringStrategy: ScoringStrategy;
 
-  constructor(users: User[], dealerIndex: number, dealStrategy: DealStrategy) {
+  constructor(users: User[], dealerIndex: number, dealStrategy: DealStrategy, scoringStrategy: ScoringStrategy) {
     this._dealStrategy = dealStrategy;
+    this._scoringStrategy = scoringStrategy;
 
     users.forEach((user) => {
       this._scoreboard.set(user.id, 0);
@@ -97,26 +109,55 @@ export class Game {
     return this._players;
   }
 
-  place(id: number, card: Card): Either<Error, PlaceResult> {
+  get end() {
+    return this._players[this._dealerIndex].cards.length === 0;
+  }
+
+  // TODO 这个函数目前做了太多的事情了，后续可以进行优化
+  place(id: number, placedCard: Card, capturedCards: Card[]): Either<Error, PlaceResult> {
     return Either.encase(() => {
-      if (this.currentPlayer.id !== id) throw new Error(`the player id '${id}' not is current player`);
+      if (this.end) throw new Error("the game is end");
+      if (this.currentPlayer.id !== id) throw new Error(`the id '${id}'is not the id of current player`);
+      if (!this.currentPlayer.has([placedCard]))
+        new Error(`not found card '${placedCard.suit}-${placedCard.type}' in the player '${this.currentPlayer.nickname}'`);
     }).chain(() => {
       return this.currentPlayer
-        .place(card)
-        .toEither(new Error(`not found card '${card.suit}-${card.type}' in the player '${this.currentPlayer.nickname}'`))
-        .extend(() => {
+        .place(placedCard)
+        .toEither(new Error(`not found card '${placedCard.suit}-${placedCard.type}' in the player '${this.currentPlayer.nickname}'`))
+        .chain(() => {
+          const matchedResult = this._table.match(placedCard);
+
+          if (capturedCards.length) {
+            const hasCaptured = matchedResult.some((matched) =>
+              matched.every((card) => capturedCards.some((c) => c.type === card.type && c.suit === card.suit))
+            );
+            if (!hasCaptured) return Left(new Error("captured cards not's on the table"));
+            this._table.remove(capturedCards);
+            this.currentPlayer.capture(this._table.cards.length === 0, [placedCard, ...capturedCards]);
+          } else {
+            this._table.receive([placedCard]);
+          }
+
           this._currentPlayerIndex = this._getNextPlayerIndex();
-          const captured = this._matchTableCards(card);
-          return {
+
+          return Either.of({
             scopa: false,
-            placed: { ...card },
-            captured: captured,
-          };
+            placed: placedCard,
+            matched: matchedResult,
+            captured: capturedCards,
+          });
         });
     });
   }
 
-  private _matchTableCards(card: Card): Card[][] {
-    throw new Error("Method not implemented.");
+  settle() {
+    if (!this.end || this._status === GameStatus.CLOSED) return;
+    this._status = GameStatus.CLOSED;
+
+    const scored = this._scoringStrategy(this._players);
+
+    scored.map((score, index) => {
+      this._scoreboard.set(this._players[index].id, score);
+    });
   }
 }

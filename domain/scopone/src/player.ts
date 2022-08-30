@@ -29,6 +29,14 @@ export class Player implements User {
     return this._cards;
   }
 
+  get captured() {
+    return this._captured.flatMap((v) => v);
+  }
+
+  get scopa() {
+    return this._scopa;
+  }
+
   receive(cards: Card[]) {
     this._cards = this._cards.concat(cards);
   }
@@ -40,6 +48,10 @@ export class Player implements User {
       return Maybe.empty();
     }
     return Maybe.of(this._cards.splice(index, 1)[0]);
+  }
+
+  has(cards: Card[]) {
+    return cards.every((card) => this._cards.some((c) => c.type === card.type && c.suit === card.suit));
   }
 
   capture(scopa: boolean, captured: Card[]) {

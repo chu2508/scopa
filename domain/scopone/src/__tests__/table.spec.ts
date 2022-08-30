@@ -53,4 +53,26 @@ describe("Table tests", () => {
       { type: Types.ACE, suit: Suits.Coppe },
     ]);
   });
+
+  test("table has test", () => {
+    const cards: Card[] = [
+      { type: Types.ACE, suit: Suits.Bastoni },
+      { type: Types.ACE, suit: Suits.Coppe },
+      { type: Types.TWO, suit: Suits.Bastoni },
+      { type: Types.THREE, suit: Suits.Bastoni },
+    ];
+
+    const table = new Table(cards);
+
+    let result = table.has([
+      { type: Types.ACE, suit: Suits.Bastoni },
+      { type: Types.ACE, suit: Suits.Coppe },
+    ]);
+
+    expect(result).toBeTruthy();
+
+    result = table.has([{ type: Types.KING, suit: Suits.Coppe }]);
+
+    expect(result).toBeFalsy();
+  });
 });
