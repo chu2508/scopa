@@ -1,3 +1,6 @@
+import { Card } from "./deck";
+import { DealStrategy, ScoringStrategy } from "./game";
+
 /**
  * 计算给定的数据源中可以组合成对应合（Combination Sum）的算法
  * 算法有经过修改以适应我们的需求
@@ -24,3 +27,31 @@ export function compute(originList: number[], result: number[][], tempList: numb
     }
   }
 }
+
+export const scoponeDeal: DealStrategy = (cards, numberOfPlayers) => {
+  if (numberOfPlayers <= 0) throw new Error("number of players is zero");
+  const cardsOfPlayers: Card[][] = Array.from({ length: numberOfPlayers }, () => []);
+  let table: Card[] = [];
+
+  while (cards.length) {
+    if (cardsOfPlayers[0].length < 9 && cards.length > 0) {
+      cardsOfPlayers.forEach((cardOfPlayer) => {
+        cardOfPlayer.push(...cards.splice(0, 3));
+      });
+    }
+
+    if (table.length < 4 && cards.length > 0) {
+      table = table.concat(cards.splice(0, 2));
+    }
+  }
+
+  return {
+    cardsOfPlayers,
+    table,
+  };
+};
+
+export const scoreSettle: ScoringStrategy = (playedResults) => {
+  // TODO mocked
+  return playedResults.map(() => 1);
+};

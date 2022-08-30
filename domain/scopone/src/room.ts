@@ -1,5 +1,5 @@
 import { Either } from "purify-ts";
-import { scoponeDeal } from "./deal";
+import { scoponeDeal, scoreSettle } from "./core";
 import { Game } from "./game";
 import { User } from "./user";
 
@@ -77,7 +77,7 @@ export class Room {
       if (!this.isFulled) throw new Error("room not is fulled");
 
       const dealerIndex = Math.floor(Math.random() * this._users.length);
-      const game = new Game(this._users, dealerIndex, scoponeDeal);
+      const game = new Game(this._users, dealerIndex, scoponeDeal, scoreSettle);
       this._games.push(game);
       this._currentGame = game;
       this._status = RoomStatus.PLAYING;
