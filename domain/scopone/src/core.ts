@@ -1,4 +1,4 @@
-import { Card } from "./deck";
+import { Card, Suits, Types } from "./deck";
 import { DealStrategy, ScoringStrategy } from "./game";
 
 /**
@@ -28,9 +28,9 @@ export function compute(originList: number[], result: number[][], tempList: numb
   }
 }
 
-export const scoponeDeal: DealStrategy = (cards, numberOfPlayers) => {
-  if (numberOfPlayers <= 0) throw new Error("number of players is zero");
-  const cardsOfPlayers: Card[][] = Array.from({ length: numberOfPlayers }, () => []);
+export const scoponeDeal: DealStrategy = (cards, playersCount) => {
+  if (playersCount <= 0) throw new Error("number of players is zero");
+  const cardsOfPlayers: Card[][] = Array.from({ length: playersCount }, () => []);
   let table: Card[] = [];
 
   while (cards.length) {
@@ -52,6 +52,50 @@ export const scoponeDeal: DealStrategy = (cards, numberOfPlayers) => {
 };
 
 export const scoreSettle: ScoringStrategy = (playedResults) => {
-  // TODO mocked
-  return playedResults.map(() => 1);
+  const temp = {
+    counts: [0, 0, -1],
+    denaris: [0, 0, -1],
+    settebello: -1,
+    rebello: -1,
+    points: [0, -1],
+  };
+
+  playedResults.reduce((acc, played, index) => {
+    const compute = (temp: number[], value: number) => {
+      if (value > temp[0]) {
+        temp = [value, 1, index];
+      }
+      if (value === temp[0]) {
+        temp = [value, temp[1] + 1, -1];
+      }
+
+      return temp;
+    };
+    acc.counts = compute(acc.counts, played.captured.length);
+    acc.denaris = compute(acc.denaris, played.captured.length);
+    acc.points = compute(acc.points, played.maxOfSuits);
+
+    if (played.captured.find((card) => card.suit === Suits.Denari && card.type === Types.SEVEN)) {
+      acc.settebello = index;
+    }
+    if (played.captured.find((card) => card.suit === Suits.Denari && card.type === Types.KING)) {
+      acc.rebello = index;
+    }
+    return acc;
+  }, temp);
+
+  return playedResults.map((played, index) => {
+    let total = played.scopa;
+
+    const compute = (v: number) => {
+      if (v === index) {
+        total += 1;
+      }
+    };
+    compute(temp.counts[2]);
+    compute(temp.denaris[2]);
+    compute(temp.points[2]);
+
+    return total;
+  });
 };

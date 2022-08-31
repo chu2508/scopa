@@ -28,6 +28,7 @@ export interface PlaceResult {
 export interface PlayedResult {
   scopa: number;
   captured: Card[];
+  maxOfSuits: number;
 }
 export interface ScoringStrategy {
   (playedResults: PlayedResult[]): number[];
@@ -107,6 +108,10 @@ export class Game {
 
   get players() {
     return this._players;
+  }
+
+  get scoreboard() {
+    return this._players.map((p) => this._scoreboard.get(p.id) ?? 0);
   }
 
   get end() {

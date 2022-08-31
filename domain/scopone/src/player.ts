@@ -1,5 +1,5 @@
 import { Maybe } from "purify-ts";
-import { Card } from "./deck";
+import { Card, Suits, TypePrimes } from "./deck";
 import { User } from "./user";
 
 export class Player implements User {
@@ -35,6 +35,21 @@ export class Player implements User {
 
   get scopa() {
     return this._scopa;
+  }
+
+  get maxOfSuits(): number {
+    const map = new Map<Suits, number>([
+      [Suits.Bastoni, 0],
+      [Suits.Coppe, 0],
+      [Suits.Denari, 0],
+      [Suits.Spade, 0],
+    ]);
+    this.captured.forEach((card) => {
+      if ((map.get(card.suit) ?? 0) < TypePrimes[card.type]) {
+        map.set(card.suit, TypePrimes[card.type]);
+      }
+    });
+    return [...map.values()].reduce((acc, prime) => acc + prime, 0);
   }
 
   receive(cards: Card[]) {
