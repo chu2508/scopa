@@ -52,27 +52,26 @@ export const scoponeDeal: DealStrategy = (cards, playersCount) => {
 };
 
 export const scoreSettle: ScoringStrategy = (playedResults) => {
-  const temp = {
+  let temp = {
     counts: [0, 0, -1],
     denaris: [0, 0, -1],
     settebello: -1,
     rebello: -1,
-    points: [0, -1],
+    points: [0, 0, -1],
   };
 
-  playedResults.reduce((acc, played, index) => {
+  temp = playedResults.reduce((acc, played, index) => {
     const compute = (temp: number[], value: number) => {
       if (value > temp[0]) {
         temp = [value, 1, index];
-      }
-      if (value === temp[0]) {
+      } else if (value === temp[0]) {
         temp = [value, temp[1] + 1, -1];
       }
 
       return temp;
     };
     acc.counts = compute(acc.counts, played.captured.length);
-    acc.denaris = compute(acc.denaris, played.captured.length);
+    acc.denaris = compute(acc.denaris, played.captured.filter((c) => c.suit === Suits.Denari).length);
     acc.points = compute(acc.points, played.maxOfSuits);
 
     if (played.captured.find((card) => card.suit === Suits.Denari && card.type === Types.SEVEN)) {

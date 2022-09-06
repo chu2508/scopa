@@ -163,3 +163,5 @@ describe("playing tests for game", () => {
     expect(game.table).toEqual([...table, card]);
   });
 });
+
+describe("game process tests", () => {});
