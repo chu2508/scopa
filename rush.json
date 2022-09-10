@@ -400,8 +400,12 @@
       "projectFolder": "domain/scopone"
     },
     {
-      "packageName": "@render/client",
-      "projectFolder": "render/client"
+      "packageName": "@render/scopone",
+      "projectFolder": "render/scopone"
+    },
+    {
+      "packageName": "@apps/scopone",
+      "projectFolder": "apps/scopone"
     }
     // {
     //   /**

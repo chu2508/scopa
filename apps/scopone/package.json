@@ -1,0 +1,20 @@
+{
+  "name": "@apps/scopone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@domain/scopone": "workspace:*",
+    "class-validator": "~0.13.2"
+  },
+  "devDependencies": {
+    "tslib": "~2.4.0"
+  }
+}
