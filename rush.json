@@ -406,6 +406,14 @@
     {
       "packageName": "@apps/scopone",
       "projectFolder": "apps/scopone"
+    },
+    {
+      "packageName": "@core/common",
+      "projectFolder": "core/common"
+    },
+    {
+      "packageName": "@domain/shop",
+      "projectFolder": "domain/shop"
     }
     // {
     //   /**
