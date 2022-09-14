@@ -18,9 +18,61 @@ importers:
 
   ../../core/common:
     specifiers:
+      '@babel/core': ^7.8.0
+      '@babel/runtime': ^7.7.7
+      '@types/jest': ~28.1.7
+      '@types/uuid': ~8.3.4
+      class-validator: ~0.13.2
+      dayjs: ~1.11.5
+      jest: ~29.0.1
+      ts-jest: ~28.0.8
+      ts-node: ~10.9.1
       tslib: ~2.4.0
-      typescript: ~4.8.3
+      typescript: ~4.8.2
+    dependencies:
+      class-validator: 0.13.2
+      dayjs: 1.11.5
     devDependencies:
+      '@babel/core': 7.18.10
+      '@babel/runtime': 7.18.9
+      '@types/jest': 28.1.7
+      '@types/uuid': 8.3.4
+      jest: 29.0.1_ts-node@10.9.1
+      ts-jest: 28.0.8_62ddf0ae1657708ad56c4598adf21280
+      ts-node: 10.9.1_typescript@4.8.3
+      tslib: 2.4.0
+      typescript: 4.8.3
+
+  ../../domain/commodity:
+    specifiers:
+      '@babel/core': ^7.8.0
+      '@babel/runtime': ^7.7.7
+      '@core/common': workspace:*
+      '@types/jest': ~28.1.7
+      '@types/uuid': ~8.3.4
+      class-validator: ~0.13.2
+      dayjs: ~1.11.5
+      jest: ~29.0.1
+      purify-ts: ~1.3.0
+      ts-jest: ~28.0.8
+      ts-node: ~10.9.1
+      tslib: ~2.4.0
+      typescript: ~4.8.2
+      uuid: ~8.3.2
+    dependencies:
+      '@core/common': link:../../core/common
+      class-validator: 0.13.2
+      dayjs: 1.11.5
+      purify-ts: 1.3.0
+      uuid: 8.3.2
+    devDependencies:
+      '@babel/core': 7.18.10
+      '@babel/runtime': 7.18.9
+      '@types/jest': 28.1.7
+      '@types/uuid': 8.3.4
+      jest: 29.0.1_ts-node@10.9.1
+      ts-jest: 28.0.8_62ddf0ae1657708ad56c4598adf21280
+      ts-node: 10.9.1_typescript@4.8.3
       tslib: 2.4.0
       typescript: 4.8.3
 
@@ -74,7 +126,6 @@ importers:
       class-validator: 0.13.2
       dayjs: 1.11.5
       purify-ts: 1.3.0
-      ts-jest: 28.0.8_03c169d7ca1e1c9ffd3f93af986bfa7a
       uuid: 8.3.2
     devDependencies:
       '@babel/core': 7.18.10
@@ -82,6 +133,7 @@ importers:
       '@types/jest': 28.1.7
       '@types/uuid': 8.3.4
       jest: 29.0.1_ts-node@10.9.1
+      ts-jest: 28.0.8_03c169d7ca1e1c9ffd3f93af986bfa7a
       ts-node: 10.9.1_typescript@4.8.2
       tslib: 2.4.0
       typescript: 4.8.2
@@ -4672,7 +4724,6 @@ packages:
     engines: {node: '>= 6'}
     dependencies:
       fast-json-stable-stringify: 2.1.0
-    dev: false
 
   /bser/2.1.1:
     resolution: {integrity: sha512-gQxTNE/GAfIIrmHLUE3oJyp5FO6HRBfhjnw4/wMmA63ZGDJnWBmgY/lyQBpnDUkGmAhbSe39tx2d/iTOAfglwQ==}
@@ -13800,7 +13851,40 @@ packages:
       semver: 7.3.7
       typescript: 4.8.2
       yargs-parser: 21.1.1
-    dev: false
+
+  /ts-jest/28.0.8_62ddf0ae1657708ad56c4598adf21280:
+    resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}
+    engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
+    hasBin: true
+    peerDependencies:
+      '@babel/core': '>=7.0.0-beta.0 <8'
+      '@jest/types': ^28.0.0
+      babel-jest: ^28.0.0
+      esbuild: '*'
+      jest: ^28.0.0
+      typescript: '>=4.3'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@jest/types':
+        optional: true
+      babel-jest:
+        optional: true
+      esbuild:
+        optional: true
+    dependencies:
+      '@babel/core': 7.18.10
+      bs-logger: 0.2.6
+      fast-json-stable-stringify: 2.1.0
+      jest: 29.0.1_ts-node@10.9.1
+      jest-util: 28.1.3
+      json5: 2.2.1
+      lodash.memoize: 4.1.2
+      make-error: 1.3.6
+      semver: 7.3.7
+      typescript: 4.8.3
+      yargs-parser: 21.1.1
+    dev: true
 
   /ts-node/10.9.1:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
@@ -13887,6 +13971,36 @@ packages:
       diff: 4.0.2
       make-error: 1.3.6
       typescript: 4.8.2
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    dev: true
+
+  /ts-node/10.9.1_typescript@4.8.3:
+    resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
+    hasBin: true
+    peerDependencies:
+      '@swc/core': '>=1.2.50'
+      '@swc/wasm': '>=1.2.50'
+      '@types/node': '*'
+      typescript: '>=2.7'
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      '@swc/wasm':
+        optional: true
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.9
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.3
+      acorn: 8.8.0
+      acorn-walk: 8.2.0
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 4.8.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     dev: true

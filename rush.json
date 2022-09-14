@@ -414,6 +414,10 @@
     {
       "packageName": "@domain/shop",
       "projectFolder": "domain/shop"
+    },
+    {
+      "packageName": "@domain/commodity",
+      "projectFolder": "domain/commodity"
     }
     // {
     //   /**

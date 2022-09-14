@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { BusinessDates } from "../shop";
+import { BusinessDates } from "../index";
 
 describe("BusinessDates tests", () => {
   test("如果使用正确的参数创建BusinessDates，应该返回BusinessDates实例", () => {
