@@ -5,7 +5,7 @@ import { Commodity, CommodityType } from "../index";
 import { SaleInfo } from "../SaleInfo";
 
 describe("Display Info tests", () => {
-  const sku = new CommoditySKU(1, "Normal", 0);
+  const sku = new CommoditySKU("test001", 1, "Normal", 0);
   const displayInfo = new DisplayInfo("http://a.jpg", [], "", "");
   const saleInfo = new SaleInfo({
     saleDates: BusinessDates.FULL_BUSINESS_DATE,

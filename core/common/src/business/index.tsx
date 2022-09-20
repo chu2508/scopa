@@ -1,17 +1,25 @@
+import { ClassConstructor, Exclude, Expose, instanceToPlain, plainToInstance } from "class-transformer";
 import { arrayMaxSize, arrayMinSize, arrayUnique } from "class-validator";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
+import { StaticImplements, Transferable, TransferableConstructor } from "../transferable";
 
 dayjs.extend(isBetween);
 
 export type TimeRange = { begin: string; end: string };
 
-export class BusinessDates {
+@Exclude()
+@StaticImplements<TransferableConstructor>()
+export class BusinessDates implements Transferable {
   private static _fullInstance: FullBusinessDates | null = null;
   static get FULL_BUSINESS_DATE() {
     return this._fullInstance ? this._fullInstance : (this._fullInstance = new FullBusinessDates());
   }
-  constructor(days: number[], times: TimeRange[]) {
+  protected constructor();
+  protected constructor(days: number[], times: TimeRange[]);
+  protected constructor(days?: number[], times?: TimeRange[]) {
+    if (!days || !times) return this;
+
     if (!arrayMaxSize(days, 7)) {
       throw new Error("营业日最多只能配置7天");
     }
@@ -36,8 +44,10 @@ export class BusinessDates {
     this._times = times;
   }
 
-  private _days: number[];
-  private _times: TimeRange[];
+  @Expose({ name: "days" })
+  private _days!: number[];
+  @Expose({ name: "times" })
+  private _times!: TimeRange[];
 
   isOpen(target: Date, now: Date): boolean {
     const isFullDays = this._days.length === 0;
@@ -60,6 +70,18 @@ export class BusinessDates {
         return tDay.isBetween(begin, end, "minute", "[]");
       })
     );
+  }
+
+  toJSON() {
+    return instanceToPlain(this);
+  }
+
+  static fromJSON(obj: any) {
+    return plainToInstance(BusinessDates as unknown as ClassConstructor<BusinessDates>, obj);
+  }
+
+  static create(days: number[], times: TimeRange[]) {
+    return new BusinessDates(days, times);
   }
 }
 

@@ -1,10 +1,14 @@
 import { maxLength, min, minLength } from "class-validator";
 export class CommoditySKU {
+  private _skuId: string;
   private _price: number;
   private _name: string;
   private _packageFee: number;
 
-  constructor(price: number, name: string, packageFee: number = 0) {
+  constructor(skuId: string, price: number, name: string, packageFee: number = 0) {
+    if (!minLength(skuId, 3)) {
+      throw new Error("SKUID不能小于3个字");
+    }
     if (!min(price, 0)) {
       throw new Error("售价不能小于0");
     }
@@ -21,5 +25,10 @@ export class CommoditySKU {
     this._name = name;
     this._price = price;
     this._packageFee = packageFee;
+    this._skuId = skuId;
+  }
+
+  get skuId() {
+    return this._skuId;
   }
 }

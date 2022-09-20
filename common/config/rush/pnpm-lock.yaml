@@ -16,12 +16,52 @@ importers:
     devDependencies:
       tslib: 2.4.0
 
+  ../../apps/shops:
+    specifiers:
+      '@babel/core': ^7.8.0
+      '@babel/runtime': ^7.7.7
+      '@core/common': workspace:*
+      '@domain/commodities': workspace:*
+      '@domain/shops': workspace:*
+      '@types/jest': ~28.1.7
+      '@types/uuid': ~8.3.4
+      class-transformer: ~0.5.1
+      class-validator: ~0.13.2
+      dayjs: ~1.11.5
+      jest: ~29.0.1
+      purify-ts: ~1.3.0
+      ts-jest: ~28.0.8
+      ts-node: ~10.9.1
+      tslib: ~2.4.0
+      typescript: ~4.8.2
+      uuid: ~8.3.2
+    dependencies:
+      '@core/common': link:../../core/common
+      '@domain/commodities': link:../../domain/commodities
+      '@domain/shops': link:../../domain/shops
+      class-transformer: 0.5.1
+      class-validator: 0.13.2
+      dayjs: 1.11.5
+      purify-ts: 1.3.0
+      uuid: 8.3.2
+    devDependencies:
+      '@babel/core': 7.18.10
+      '@babel/runtime': 7.18.9
+      '@types/jest': 28.1.7
+      '@types/uuid': 8.3.4
+      jest: 29.0.1_ts-node@10.9.1
+      ts-jest: 28.0.8_62ddf0ae1657708ad56c4598adf21280
+      ts-node: 10.9.1_typescript@4.8.3
+      tslib: 2.4.0
+      typescript: 4.8.3
+
   ../../core/common:
     specifiers:
       '@babel/core': ^7.8.0
       '@babel/runtime': ^7.7.7
       '@types/jest': ~28.1.7
       '@types/uuid': ~8.3.4
+      class-transformer: ~0.5.1
       class-validator: ~0.13.2
       dayjs: ~1.11.5
       jest: ~29.0.1
@@ -30,6 +70,7 @@ importers:
       tslib: ~2.4.0
       typescript: ~4.8.2
     dependencies:
+      class-transformer: 0.5.1
       class-validator: 0.13.2
       dayjs: 1.11.5
     devDependencies:
@@ -43,7 +84,7 @@ importers:
       tslib: 2.4.0
       typescript: 4.8.3
 
-  ../../domain/commodity:
+  ../../domain/commodities:
     specifiers:
       '@babel/core': ^7.8.0
       '@babel/runtime': ^7.7.7
@@ -105,7 +146,7 @@ importers:
       tslib: 2.4.0
       typescript: 4.8.2
 
-  ../../domain/shop:
+  ../../domain/shops:
     specifiers:
       '@babel/core': ^7.8.0
       '@babel/runtime': ^7.7.7
@@ -133,10 +174,10 @@ importers:
       '@types/jest': 28.1.7
       '@types/uuid': 8.3.4
       jest: 29.0.1_ts-node@10.9.1
-      ts-jest: 28.0.8_03c169d7ca1e1c9ffd3f93af986bfa7a
-      ts-node: 10.9.1_typescript@4.8.2
+      ts-jest: 28.0.8_62ddf0ae1657708ad56c4598adf21280
+      ts-node: 10.9.1_typescript@4.8.3
       tslib: 2.4.0
-      typescript: 4.8.2
+      typescript: 4.8.3
 
   ../../domain/todo:
     specifiers:
@@ -5008,6 +5049,10 @@ packages:
   /cjs-module-lexer/1.2.2:
     resolution: {integrity: sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==}
 
+  /class-transformer/0.5.1:
+    resolution: {integrity: sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw==}
+    dev: false
+
   /class-utils/0.3.6:
     resolution: {integrity: sha512-qOhPa/Fj7s6TY8H8esGu5QNpMMQxz79h+urzrNYN6mn+9BnxlDGf5QZ+XeCDsxSjPqsSR56XOZOJmpeurnLMeg==}
     engines: {node: '>=0.10.0'}
@@ -8987,7 +9032,7 @@ packages:
       pretty-format: 29.0.1
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1_typescript@4.8.2
+      ts-node: 10.9.1_typescript@4.8.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -9026,7 +9071,7 @@ packages:
       pretty-format: 29.0.1
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1_typescript@4.8.2
+      ts-node: 10.9.1_typescript@4.8.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -13851,6 +13896,7 @@ packages:
       semver: 7.3.7
       typescript: 4.8.2
       yargs-parser: 21.1.1
+    dev: false
 
   /ts-jest/28.0.8_62ddf0ae1657708ad56c4598adf21280:
     resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}

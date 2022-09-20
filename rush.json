@@ -412,12 +412,16 @@
       "projectFolder": "core/common"
     },
     {
-      "packageName": "@domain/shop",
-      "projectFolder": "domain/shop"
+      "packageName": "@domain/shops",
+      "projectFolder": "domain/shops"
     },
     {
-      "packageName": "@domain/commodity",
-      "projectFolder": "domain/commodity"
+      "packageName": "@domain/commodities",
+      "projectFolder": "domain/commodities"
+    },
+    {
+      "packageName": "@apps/shops",
+      "projectFolder": "apps/shops"
     }
     // {
     //   /**

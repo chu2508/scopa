@@ -4,6 +4,8 @@ import { CommoditySKU } from "./CommoditySKU";
 import { DisplayInfo } from "./DisplayInfo";
 import { SaleInfo } from "./SaleInfo";
 
+export { CommoditySKU, DisplayInfo, SaleInfo };
+
 export enum CommodityType {
   SPU = "SPU",
   PACKAGE = "PACKAGE",
