@@ -1,3 +1,5 @@
+import "reflect-metadata";
+import { instanceToPlain, plainToInstance } from "class-transformer";
 import dayjs from "dayjs";
 import { BusinessDates } from "../index";
 
@@ -43,5 +45,22 @@ describe("BusinessDates tests", () => {
 
     expect(dates.isOpen(dayjs("2022-09-12 1:00").toDate(), now.toDate())).toBeTruthy();
     expect(dates.isOpen(dayjs("2022-09-12 22:00").toDate(), now.toDate())).toBeFalsy();
+  });
+
+  test("business class transform", () => {
+    const time1 = { begin: "10:00", end: "20:00" };
+    let dates = BusinessDates.create([], [time1]);
+
+    const plain = instanceToPlain(dates);
+
+    expect(plain.days).toHaveLength(0);
+    expect(plain.times).toHaveLength(1);
+    expect(plain.times[0]).toEqual(time1);
+
+    const instance = plainToInstance<BusinessDates, any>(BusinessDates as any, plain);
+
+    expect(instance.days).toHaveLength(0);
+    expect(instance.times).toHaveLength(1);
+    expect(instance.times[0]).toEqual(time1);
   });
 });

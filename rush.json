@@ -422,6 +422,14 @@
     {
       "packageName": "@apps/shops",
       "projectFolder": "apps/shops"
+    },
+    {
+      "packageName": "@infra/shops",
+      "projectFolder": "infra/shops"
+    },
+    {
+      "packageName": "@services/shops",
+      "projectFolder": "services/shops"
     }
     // {
     //   /**

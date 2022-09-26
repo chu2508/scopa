@@ -49,6 +49,14 @@ export class BusinessDates implements Transferable {
   @Expose({ name: "times" })
   private _times!: TimeRange[];
 
+  get days() {
+    return this._days;
+  }
+
+  get times() {
+    return this._times;
+  }
+
   isOpen(target: Date, now: Date): boolean {
     const isFullDays = this._days.length === 0;
     let inDays = true;

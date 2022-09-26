@@ -7,9 +7,12 @@ export class Shop {
   private _name: string;
   private _location: Location;
   private _businessDates: BusinessDates;
-  private _menuId?: string;
 
-  constructor(name: string, location: Location, businessDates: BusinessDates) {
+  static fromDB(obj: Record<string, any>) {
+    return new Shop(obj.name, obj.location, obj.businessDates, obj.id);
+  }
+
+  constructor(name: string, location: Location, businessDates: BusinessDates, id?: string) {
     if (!minLength(name, 2) || !maxLength(name, 20)) {
       throw new Error("门店名称长度在2-20个字");
     }
@@ -20,14 +23,26 @@ export class Shop {
       throw new Error("门店营业时间不能为空");
     }
 
-    this._id = uuid();
+    this._id = id || uuid();
     this._name = name;
     this._location = location;
     this._businessDates = businessDates;
   }
 
-  bindMenu(menuId: string) {
-    this._menuId = menuId;
+  get id() {
+    return this._id;
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  get location() {
+    return this._location;
+  }
+
+  get businessDates() {
+    return this._businessDates;
   }
 }
 

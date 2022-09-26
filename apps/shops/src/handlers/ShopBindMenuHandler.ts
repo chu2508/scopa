@@ -10,7 +10,7 @@ export class ShopBindMenuHandler {
     if (!menu) throw new Error("未找到菜单");
     if (!shop) throw new Error("未找到门店");
 
-    shop.bindMenu(menu.id);
+    // shop.bindMenu(menu.id);
 
     this._shopRepo.save(shop);
   }
