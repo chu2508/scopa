@@ -16,12 +16,14 @@ export enum ComponentType {
 
 export type BehaviorData = "jump";
 
-interface BehaviorExecute {
+export interface BehaviorExecute {
   (): void;
 }
 
-interface BehaviorExecutor {
+export interface BehaviorExecutor {
   execute(): void;
 }
 
 export type IBehavior = BehaviorExecute | BehaviorExecutor;
+
+export type IBizComponent = ComponentData;

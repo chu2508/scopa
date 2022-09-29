@@ -1,6 +1,6 @@
 {
   "miniprogramRoot": "./",
-  "projectname": "caterer",
+  "projectname": "project",
   "appid": "testAppId",
   "setting": {
     "es6": false,

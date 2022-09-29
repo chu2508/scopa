@@ -1,13 +1,11 @@
 {
   "miniprogramRoot": "./dist",
-  "projectname": "caterer",
+  "projectname": "project",
   "description": "",
   "appid": "touristappid",
   "setting": {
     "urlCheck": true,
     "es6": false,
-    "enhance": false,
-    "compileHotReLoad": false,
     "postcss": false,
     "minified": false
   },

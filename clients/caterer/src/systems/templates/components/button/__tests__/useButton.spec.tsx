@@ -2,7 +2,7 @@ import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom/extend-expect";
 
-import { ComponentType } from "../../../../templates/interface";
+import { ComponentType } from "../../../interface";
 import { ButtonContextData, useButton } from "../useButton";
 
 describe("useButton", () => {
@@ -23,6 +23,6 @@ describe("useButton", () => {
 
     await userEvent.click(getByText("click btn"));
 
-    expect(behavior).toBeCalled();
+    expect(behavior).toBeCalledTimes(1);
   });
 });
