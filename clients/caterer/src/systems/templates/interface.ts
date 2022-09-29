@@ -1,3 +1,5 @@
+import { FC } from "react";
+
 export interface TemplateData {
   id: number;
   name: string;
@@ -26,4 +28,4 @@ export interface BehaviorExecutor {
 
 export type IBehavior = BehaviorExecute | BehaviorExecutor;
 
-export type IBizComponent = ComponentData;
+export type IBizComponent = FC<{ data: ComponentData }>;

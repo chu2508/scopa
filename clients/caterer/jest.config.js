@@ -1,8 +1,10 @@
+const { jsWithTs: tsjPreset } = require("ts-jest/presets");
+
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "jsdom",
-  transformIgnorePatterns: ["<rootDir>/node_modules/"],
+  transformIgnorePatterns: ["<rootDir>/node_modules"],
   setupFilesAfterEnv: ["<rootDir>/__mocks__/setEnv.ts"],
   globals: {
     window: true,
@@ -17,6 +19,15 @@ module.exports = {
   transform: {
     "^.+\\.jsx?$": "babel-jest",
     "^.+\\.tsx?$": "ts-jest",
+    ...tsjPreset.transform,
+  },
+  moduleNameMapper: {
+    "@tarojs/taro": "@tarojs/taro-h5",
+    "@tarojs/components": "@tarojs/components/dist-h5/react",
+    // '@tarojs/runtime': '<rootDir>/__mocks__/taro-runtime',
+    "@tarojs/plugin-framework-react/dist/runtime": "<rootDir>/__mocks__/taro-framework",
+    "(\\.(css|less|sass|scss))|weui": "<rootDir>/__mocks__/styleMock.js",
+    "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js",
   },
 };
 
