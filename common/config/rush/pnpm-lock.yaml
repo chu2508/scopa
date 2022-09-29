@@ -72,6 +72,7 @@ importers:
       '@testing-library/user-event': ~12.0.0
       '@types/jest': ~28.1.7
       '@types/react': ^17.0.2
+      '@types/testing-library__jest-dom': ~5.14.5
       '@types/webpack-env': ^1.13.6
       '@typescript-eslint/eslint-plugin': ^5.20.0
       '@typescript-eslint/parser': ^5.20.0
@@ -108,6 +109,7 @@ importers:
       '@testing-library/user-event': 12.0.17
       '@types/jest': 28.1.7
       '@types/react': 17.0.50
+      '@types/testing-library__jest-dom': 5.14.5
       '@types/webpack-env': 1.18.0
       '@typescript-eslint/eslint-plugin': 5.33.1_cd05e32f59625264bc8175d3f9062d26
       '@typescript-eslint/parser': 5.33.1_eslint@8.22.0+typescript@4.8.3
@@ -7793,7 +7795,7 @@ packages:
       pretty-format: 29.0.1
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1_typescript@4.8.3
+      ts-node: 10.9.1_typescript@4.8.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -7832,7 +7834,7 @@ packages:
       pretty-format: 29.0.1
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1_typescript@4.8.3
+      ts-node: 10.9.1_typescript@4.8.2
     transitivePeerDependencies:
       - supports-color
     dev: true

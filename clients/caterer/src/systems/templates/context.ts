@@ -4,6 +4,9 @@ import { ComponentType, IBizComponent, TemplateData } from "./interface";
 export interface RenderConfig {
   template: TemplateData;
   componentsFactory: (data: ComponentType) => IBizComponent;
+  behaviors: {
+    navigateTo: (path: string, params?: Record<string, any>) => void;
+  };
 }
 // 如果RenderConfig没有进行初始化，抛出Error
 const defaultValueProxy = new Proxy<RenderConfig>({} as any, {

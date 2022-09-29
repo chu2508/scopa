@@ -19,7 +19,7 @@ describe("RenderContainer", () => {
     componentsFactory.mockReturnValue(component);
 
     render(<RenderContainer />, {
-      wrapper: ({ children }) => <ConfigProvider value={{ template, componentsFactory }}>{children}</ConfigProvider>,
+      wrapper: ({ children }) => <ConfigProvider value={{ template, componentsFactory, behaviors: {} as any }}>{children}</ConfigProvider>,
     });
 
     expect(componentsFactory).toBeCalledTimes(template.components.length);

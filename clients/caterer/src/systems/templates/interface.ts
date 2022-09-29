@@ -14,6 +14,7 @@ export interface ComponentData {
 
 export enum ComponentType {
   BUTTON = "BUTTON",
+  ENTRIES = "ENTRIES",
 }
 
 export type BehaviorData = "jump";
@@ -29,3 +30,9 @@ export interface BehaviorExecutor {
 export type IBehavior = BehaviorExecute | BehaviorExecutor;
 
 export type IBizComponent = FC<{ data: ComponentData }>;
+
+export interface EntriesComponentData extends ComponentData {
+  type: ComponentType.ENTRIES;
+  rowSize: number;
+  blocks: { path: string; icon: string }[];
+}

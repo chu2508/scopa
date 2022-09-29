@@ -1,6 +1,8 @@
 import { View } from "@tarojs/components";
 import { useContext } from "react";
-import { ConfigContext } from "./context";
+import { componentFactory } from "./components/factory";
+import { ConfigContext, ConfigProvider } from "./context";
+import { TemplateData } from "./interface";
 
 export const RenderContainer = () => {
   const { template, componentsFactory } = useContext(ConfigContext);
@@ -21,4 +23,12 @@ export const RenderContainer = () => {
   );
 };
 
-export const Render = () => {};
+const navigateTo = () => {};
+
+export const TemplateRender = ({ template }: { template: TemplateData }) => {
+  return (
+    <ConfigProvider value={{ template, componentsFactory: componentFactory, behaviors: { navigateTo } }}>
+      <RenderContainer />
+    </ConfigProvider>
+  );
+};
