@@ -1,6 +1,7 @@
 import { ComponentType, IBizComponent } from "../interface";
+import { Entries } from "./entries";
 
-const map: Map<ComponentType, IBizComponent> = new Map([[ComponentType.BUTTON, () => null]]);
+const map: Map<ComponentType, IBizComponent> = new Map([[ComponentType.ENTRIES, Entries]]);
 
 export const componentFactory = (type: ComponentType): IBizComponent => {
   if (map.has(type)) {
