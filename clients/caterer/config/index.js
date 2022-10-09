@@ -19,6 +19,7 @@ const config = {
         enableDebugLog: true,
       },
     ],
+    "@tarojs/plugin-mock",
   ],
   defineConstants: {},
   copy: {
