@@ -406,6 +406,10 @@
       "packageName": "@clients/caterer",
       "projectFolder": "clients/caterer"
     },
+    {
+      "packageName": "@games/slg",
+      "projectFolder": "games/slg"
+    },
     // {
     //   /**
     //    * The NPM package name of the project (must match package.json)
