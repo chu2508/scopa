@@ -20,7 +20,14 @@ export abstract class Entity {
     }
   }
 
-  hasComponent<C extends IComponent>(constr: ComponentConstructor<C>): boolean {
+  hasComponent<C extends IComponent>(constr: ComponentConstructor<C>) {
     return this.components.findIndex((comp) => comp instanceof constr) > -1;
+  }
+
+  getComponent<C extends IComponent>(constr: ComponentConstructor<C>): C | undefined {
+    const index = this.components.findIndex((comp) => comp instanceof constr);
+    if (index > -1) {
+      return this.components[index] as C;
+    }
   }
 }
