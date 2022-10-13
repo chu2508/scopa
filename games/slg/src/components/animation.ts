@@ -14,6 +14,7 @@ export class Animation implements IComponent {
     this.start = { ...start };
     this.current = { ...start };
     this.deltaVec = { x: this.end.x - this.start.x, y: this.end.y - this.start.y };
+    console.log(this.deltaVec);
   }
 
   run(startTimestamp: number) {
@@ -28,19 +29,21 @@ export class Animation implements IComponent {
       this.run(timestamp);
     } else {
       const deltaTime = timestamp - this.startTimestamp;
+      this.lastTimestamp = timestamp;
+      if (deltaTime >= this.duration) {
+        this.current.x = this.end.x;
+        this.current.y = this.end.y;
+        this.finished = true;
+        return;
+      }
 
       const c = deltaTime / this.duration;
 
-      let x = Math.min(this.end.x, this.start.x + this.deltaVec.x * c);
-      let y = Math.min(this.end.y, this.start.y + this.deltaVec.y * c);
+      let x = this.start.x + this.deltaVec.x * c;
+      let y = this.start.y + this.deltaVec.y * c;
 
       this.current.x = x;
       this.current.y = y;
-
-      this.lastTimestamp = timestamp;
-      if (deltaTime >= this.duration) {
-        this.finished = true;
-      }
     }
   }
 

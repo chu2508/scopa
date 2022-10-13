@@ -8,6 +8,13 @@ export abstract class Entity {
   readonly components: IComponent[] = [];
 
   addComponent(comp: IComponent) {
+    console.log("comp", comp);
+
+    if (this.hasComponent(Object.getPrototypeOf(comp).constructor)) {
+      console.log("aaa");
+
+      return;
+    }
     this.components.push(comp);
     comp.entity = this;
   }
