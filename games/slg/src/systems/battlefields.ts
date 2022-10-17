@@ -1,7 +1,11 @@
 import { System } from "nopun-ecs";
 import { Coordinate, PIXIContainerRef } from "../components";
-import { Sprite, SCALE_MODES } from "pixi.js";
+import { Sprite, Texture, Graphics } from "pixi.js";
 import img from "./base-green.png";
+import img2 from "./base-red.png";
+
+const texture1 = Texture.from(img);
+const texture2 = Texture.from(img2);
 
 export class BattlefieldSystem extends System {
   static queries = {
@@ -18,7 +22,7 @@ export class BattlefieldSystem extends System {
       const imageHeight = 200;
       const paddingX = 20;
 
-      const sprite = Sprite.from(img);
+      const sprite = Sprite.from(texture1);
 
       sprite.scale.set(width / imgWidth, height / imageHeight);
       const y = coordinate.row * height + height / 2;
@@ -27,6 +31,11 @@ export class BattlefieldSystem extends System {
       const offsetX = coordinate.row % 2 === 0 ? 0 : (width - paddingX) / 2;
       sprite.anchor.set(0.5);
       sprite.position.set(x + offsetX, y + offsetY);
+
+      sprite.interactive = true;
+      sprite.on("mousedown", () => {
+        sprite.texture = texture2;
+      });
 
       container.addChild(sprite);
     }
