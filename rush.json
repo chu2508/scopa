@@ -410,6 +410,10 @@
       "packageName": "@games/slg",
       "projectFolder": "games/slg"
     },
+    {
+      "packageName": "@examples/cart",
+      "projectFolder": "examples/cart"
+    }
     // {
     //   /**
     //    * The NPM package name of the project (must match package.json)
