@@ -48,6 +48,27 @@ export class Grid {
     });
   }
 
+  replace(originValue: number, targetValue: number | undefined) {
+    this._values.forEach((value, index) => {
+      if (value === originValue) {
+        const { x, y } = this._getCoord(index);
+        this.set(x, y, targetValue);
+      }
+    });
+  }
+
+  getValueMappings(): { x: number; y: number; value: number | undefined }[] {
+    return this._values.map((value, index) => {
+      return { ...this._getCoord(index), value };
+    });
+  }
+
+  private _getCoord(index: number): { x: number; y: number } {
+    const x = index % this.width;
+    const y = Math.floor(index / this.width);
+    return { x, y };
+  }
+
   private _getIndex(x: number, y: number): number {
     return y * this.width + x;
   }

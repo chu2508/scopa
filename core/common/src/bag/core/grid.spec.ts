@@ -81,5 +81,27 @@ describe(">>> Grid", () => {
 
       expect(grid.getCol(0)).toEqual([2, 2, 2]);
     });
+
+    it("values should be correctly set when `replace` called", () => {
+      const { grid } = mockGrid();
+      const originValue = 2;
+      const targetValue = 3;
+
+      grid.setCol(0, originValue);
+      grid.replace(originValue, targetValue);
+
+      expect(grid.getCol(0)).toEqual([targetValue, targetValue, targetValue]);
+    });
+
+    it("should correctly returned values when `getValueMappings` called", () => {
+      const { grid } = mockGrid();
+
+      const value = grid.getValueMappings();
+
+      expect(value).toHaveLength(grid.area);
+      expect(value[0]).toStrictEqual({ x: 0, y: 0, value: undefined });
+      expect(value[1]).toStrictEqual({ x: 1, y: 0, value: undefined });
+      expect(value[2]).toStrictEqual({ x: 2, y: 0, value: undefined });
+    });
   });
 });
