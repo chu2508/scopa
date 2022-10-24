@@ -411,8 +411,8 @@
       "projectFolder": "games/slg"
     },
     {
-      "packageName": "@examples/cart",
-      "projectFolder": "examples/cart"
+      "packageName": "@examples/mall",
+      "projectFolder": "examples/mall"
     }
     // {
     //   /**
