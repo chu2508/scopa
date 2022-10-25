@@ -297,8 +297,9 @@ importers:
     devDependencies:
       '@types/uuid': 8.3.4
 
-  ../../examples/cart:
+  ../../examples/mall:
     specifiers:
+      '@testing-library/react': ~13.4.0
       '@types/jest': ~29.1.2
       '@types/react': ^18.0.17
       '@types/react-dom': ^18.0.6
@@ -313,6 +314,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
+      '@testing-library/react': 13.4.0_react-dom@18.2.0+react@18.2.0
       '@types/jest': 29.1.2
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
@@ -3807,6 +3809,20 @@ packages:
       '@testing-library/dom': 8.18.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+    dev: true
+
+  /@testing-library/react/13.4.0_react-dom@18.2.0+react@18.2.0:
+    resolution: {integrity: sha512-sXOGON+WNTh3MLE9rve97ftaZukN3oNf2KjDy7YTx6hcTO2uuLHuCGynMDhFwGw/jYf4OJ2Qk0i4i79qMNNkyw==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      '@babel/runtime': 7.18.9
+      '@testing-library/dom': 8.18.1
+      '@types/react-dom': 18.0.6
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: true
 
   /@testing-library/user-event/12.0.17:
