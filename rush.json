@@ -413,6 +413,10 @@
     {
       "packageName": "@examples/mall",
       "projectFolder": "examples/mall"
+    },
+    {
+      "packageName": "@examples/cooks",
+      "projectFolder": "examples/cooks"
     }
     // {
     //   /**
